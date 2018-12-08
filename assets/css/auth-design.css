@@ -1,0 +1,288 @@
+@import url('https://fonts.googleapis.com/css?family=Inder|Julius+Sans+One|Open+Sans|Open+Sans+Condensed:300|Roboto|Roboto+Condensed|Saira+Semi+Condensed|Titillium+Web|Arimo|Dosis|Abel|Montserrat|PT+Serif|Raleway|Roboto|Nunito+Sans|Source+Sans+Pro|Lobster|');
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+body {
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
+/*flex*/
+
+.flex {
+	display: flex;
+}
+
+.space-between {
+	justify-content: space-between;
+}
+
+.justify-center {
+	justify-content: center;
+}
+
+.direction-column {
+	flex-direction: column;
+}
+
+.visible-hide {
+	visibility: hidden;
+}
+
+.self-end {
+	align-self: flex-end;
+}
+
+.align-center {
+	align-items: center;
+}
+
+/*close flex*/
+
+/*width*/
+
+.float-right {
+	float: right;
+}
+
+.float-left {
+	float: left;
+}
+
+.p10 {
+	padding: 10px;
+}
+
+.p20 {
+	padding: 20px;
+}
+
+.m10 {
+	margin: 10px;
+}
+
+.m-tb-10 {
+	margin: 10px 0;
+}
+
+.m-s-10 {
+	margin: 0 10px;
+}
+
+.m-s-5 {
+	margin: 0 5px;
+}
+
+.m-r-10 {
+	margin-right: 10px;
+}
+
+.m-r-5 {
+	margin-right: 5px;
+}
+
+.m-b-10 {
+	margin-bottom: 10px;
+}
+
+.m-b-5 {
+	margin-bottom: 5px;
+}
+
+.m-t-5 {
+	margin-top: 5px;
+}
+
+.width100 {
+	width: 100%;
+}
+
+.width90 {
+	width: 90%;
+}
+
+.width80 {
+	width: 80%;
+}
+
+.width70 {
+	width: 70%;
+}
+
+.width60 {
+	width: 60%;
+}
+
+.width50 {
+	width: 50%;
+}
+
+.width40 {
+	width: 40%;
+}
+
+.width30 {
+	width: 30%;
+}
+
+.width20 {
+	width: 20%;
+}
+
+.width10 {
+	width: 10%;
+}
+
+.height30 {
+	height: 30%;
+}
+
+.height100 {
+	height: 100%;
+}
+
+/*text*/
+
+.color-white {
+	color: #fff;
+}
+
+.color-grn-leaf {
+	color: #17c41e;
+}
+
+.color-oren {
+	color: #ff5722;
+}
+
+.color-grey {
+	color: #949494;
+}
+
+.color-blue {
+	color: #448cd9;
+}
+
+.color-pink {
+	color: #e91e63;
+}
+
+.font25 {
+	font-size: 25px;
+}
+
+.font30 {
+	font-size: 30px;
+}
+
+.font14 {
+	font-size: 14px;
+}
+
+.font-normal {
+	font-weight: normal;
+}
+
+.text-space-05 {
+	letter-spacing: 0.5px;
+}
+
+/*close text*/
+
+/*main*/
+
+.main-login {
+	background: #1488CC;  /* fallback for old browsers */
+	background: -webkit-linear-gradient(to right, #2B32B2, #1488CC);  /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to right, #2B32B2, #1488CC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.section-login {
+	padding: 30px;
+	border-radius: 10px;
+	background: #fff;
+	min-height: 450px;
+	width: 450px;
+	position: relative;
+}
+
+.form-login {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	align-items: center;
+	position: relative;
+}
+
+.login-head {
+	display: flex;
+	flex-direction: column;
+}
+
+.login-head img {
+	height: 100px;
+	padding: 5px;
+}
+
+.login-head label {
+	font-size: 30px;
+	text-align: center;
+	font-weight: bold;
+	color: #fff;
+	letter-spacing: 1px;
+	color: #1488CC; 
+}
+
+.login-body {
+	width: 100%;
+	padding: 10px 30px;
+	display: flex;
+	flex-direction: column;
+}
+
+.login-body .login-group {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	margin-bottom: 15px;
+}
+
+.login-body .login-group label {
+	width: 30%;
+}
+
+.login-body .login-group input {
+	width: 70%;
+}
+
+.login-body button {
+	margin-top: 20px;
+	width: 50%;
+	align-self: center;
+}
+
+.login-foot {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	text-align: center;
+}
+
+/*main ENDS*/

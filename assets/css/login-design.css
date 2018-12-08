@@ -1,0 +1,230 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+}
+
+.login-row {
+	width: 100%;
+}
+
+.login-bg {
+	width: 100%;
+	min-height: 100vh;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	position: relative;
+	z-index: 1;
+}
+
+.login-bg:before {
+	content: "";
+	display: block;
+	position: absolute;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background-color: rgba(255,255,255,0.9);
+}
+
+.login-box {
+	/*background: linear-gradient(top, #7579ff, #b224ef);
+	background: -webkit-linear-gradient(top, #7579ff, #b224ef);*/
+	background: #1488CC;  /* fallback for old browsers */
+	background: -webkit-linear-gradient(to top, #2B32B2, #1488CC);  /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to top, #2B32B2, #1488CC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	width: 500px;
+	border-radius: 10px;
+	padding: 55px;
+	padding-bottom: 30px;
+}
+
+.login-form {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	justify-content: space-around;
+	text-align: center;
+}
+
+.login-head {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+.login-head img {
+	width: 110px;
+	height: 110px;
+	background: #fff;
+	padding: 20px;
+	border: 1px solid transparent;
+	border-radius: 50%;
+}
+
+.login-head label {
+	margin-top: 26px;
+	margin-bottom: 34px;
+	font-size: 30px;
+	color: #fff;
+	text-transform: uppercase;
+	font-family: 'Roboto', sans-serif;
+	letter-spacing: -1px;
+}
+
+.validate-input {
+	width: 100%;
+	margin-bottom: 30px;
+	display: flex;
+	align-items: center;
+}
+
+.validate-input i {
+	font-size: 20px;
+	color: #fff;
+	position: relative;
+	right: 370px;
+	bottom: 3px;
+	transition: all 0.4s;
+}
+
+.validate-input input {
+	width: 100%;
+	height: 45px;
+	font-size: 16px;
+	padding: 0px 0px 0px 35px;
+	background: transparent;
+	border: none;
+	border-bottom: 2px solid #a7a7a7;
+	color: #fff;
+	outline: none;
+	transition: all 0.4s;
+}
+
+.validate-input input:focus {
+	transition: all 0.4s;
+	border-bottom: 2px solid #fff;
+	padding: 0 5px;
+}
+
+/*.validate-input input:not(:placeholder-shown) + i,*/
+.validate-input input:focus + i {
+	bottom: 25px;
+	right: 375px;
+	font-size: 15px;
+	transition: all 0.4s;
+}
+
+.validate-input ::-webkit-input-placeholder {
+  color: #fff;
+}
+
+.validate-input :-ms-input-placeholder {
+  color: #fff;
+}
+
+.validate-input ::-moz-placeholder {
+  color: #fff;
+}
+
+.validate-input :-moz-placeholder {
+  color: #fff;
+}
+
+.validate-input input:focus::-webkit-input-placeholder {
+  color: transparent!important;
+}
+
+.validate-input input:focus :-ms-input-placeholder {
+  color: transparent!important;
+}
+
+.validate-input input:focus ::-moz-placeholder {
+  color: transparent!important;
+}
+
+.validate-input input:focus :-moz-placeholder {
+  color: transparent!important;
+}
+
+.validate-button {
+	margin: 15px 0;
+	width: 100%;
+}
+
+.validate-button button {
+	width: 30%;
+	padding: 15px 20px;
+	border: none;
+	border-radius: 25px;
+	background: #fff;
+	font-size: 16px;
+	color: #797777;
+	font-weight: 600;
+	letter-spacing: -0.3px;
+	cursor: pointer;
+	position: relative;
+	transition: all 0.6s;
+	outline: none;
+}
+
+.validate-button button:hover {
+	color: #fff;
+	background: #1488CC;  /* fallback for old browsers */
+	background: -webkit-linear-gradient(to bottom, #2B32B2, #1488CC);  /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to bottom, #2B32B2, #1488CC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	transition: all 0.6s;
+}
+
+.validate-button button:before {
+	content: "";
+	display: block;
+	position: absolute;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+	border-radius: 25px;
+	background-color: #fff;
+	top: 0;
+	left: 0;
+	opacity: 1;
+	transition: all 0.6s;
+}
+
+.login-copyright {
+	margin-top: 25px;
+}
+
+.login-copyright label {
+	font-family: 'Roboto', sans-serif;
+	font-size: 14px;
+	color: #cacaca;
+}
+
+.alert {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 40px;
+	margin-bottom: 20px;
+	border-radius: 5px;
+	color: #fff;
+	font-size: 15px;
+	font-family: sans-serif;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.alert-danger {
+	background: rgba(255, 51, 65, 0.81);
+}
