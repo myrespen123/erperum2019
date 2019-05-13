@@ -55,11 +55,11 @@
 										<td><?= ($val_user['level']=='1') ? 'Admin' : 'Pengembang'; ?></td>
 										<td>
 											<?php if ($val_user['status']=='1'): ?>
-												<a href="<?= site_url('admin/nonaktif/'.$val_user['id_user']); ?>">
+												<a href="<?= site_url('admin/nonaktif/'.$val_user['id_user']); ?>" onclick="return confirm('Yakin ingin matikan akun?');">
 													<i class="activate-user fa fa-check-square"></i>
 												</a>
 											<?php elseif ($val_user['status']=='0'): ?>
-												<a href="<?= site_url('admin/aktifkan/'.$val_user['id_user']); ?>">
+												<a href="<?= site_url('admin/aktifkan/'.$val_user['id_user']); ?>" onclick="return confirm('Yakin ingin aktifkan akun?');">
 													<i class="inactivate-user fa fa-times"></i>
 												</a>
 											<?php endif ?>

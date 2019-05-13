@@ -7,6 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css') ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/design.css'); ?>">
 	<link rel="stylesheet" href="<?php echo base_url ('assets/font-awesome-4.7.0/css/font-awesome.min.css'); ?>">
+	<link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
 </head>
 <body>
 
@@ -15,7 +16,7 @@
 <header class="header-sections">
 	<div class="header-section">
 		<div class="ble sort-home"  style="background-image: url('<?php echo base_url('file/main/images/'.$header->foto) ?>');">
-			<label class="label-sort-home"><?php echo $row->slogan_setting; ?></label>
+			<label class="label-sort-home"><?php echo $row_set->slogan_setting; ?></label>
 				
 			<div class="filter-search">
 				<div class="container">
@@ -53,8 +54,8 @@
 
 	<div class="site-navbar">
 		<div class="site-logo" style="color: #000;">
-			<img src="<?php echo base_url('file/main/images/'.$row->logo_setting); ?>">
-				<label><?php echo $row->nama_website ?></label>
+			<img src="<?php echo base_url('file/main/images/'.$row_set->logo_setting); ?>">
+				<label><?php echo $row_set->nama_website ?></label>
 		</div>
 		<div class="nav-small">
 			<i class="fa fa-bars"></i>

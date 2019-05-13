@@ -78,7 +78,7 @@
 														<i class="fa fa-info"></i>
 													</button>
 												</a>
-											    <a class="m-s-5" href="<?= site_url('admin/perumahan_delete/'.$val_perum['id_bangunan']); ?>">
+											    <a class="m-s-5" href="<?= site_url('admin/perumahan_delete/'.$val_perum['id_bangunan']); ?>" onclick="return confirm('Yakin ingin menghapus data?');">
 													<button class="btn button-delete">
 														<i class="fa fa-trash"></i>
 													</button>

@@ -46,7 +46,7 @@
 														<i class="fa fa-info"></i>
 													</button>
 												</a>
-											    <a class="m-s-5" href="<?php echo site_url('admin/kontak_delete/'.$val_kontak['id_kontak']); ?>">
+											    <a class="m-s-5" href="<?php echo site_url('admin/kontak_delete/'.$val_kontak['id_kontak']); ?>" onclick="return confirm('Yakin ingin menghapus data?');">
 													<button class="btn button-delete">
 														<i class="fa fa-trash"></i>
 													</button>

@@ -7,9 +7,12 @@
 	
 
 	<section class="except-properts pads">
-		<div class="properties-title">
-			<h1>PILIH RUMAH IMPIANMU</h1>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+		<div class="perumahan-hero setting-bg" style="background-image: url('<?= base_url('assets/img/bg-hero-perum.png') ?>');">
+			<img src="<?= base_url('assets/img/eperum-white.png') ?>">
+				<div class="properties-title color-white">
+					<h1>PILIH RUMAH IMPIANMU</h1>
+						<span>Lorem ipsum dolor sit amet</span>
+				</div>
 		</div>
 		<div class="container">
 			<div class="row">
@@ -42,21 +45,21 @@
 									     <input type="hidden" id="min_harga" name="min_harga" value="0" />
 						                    <input type="hidden" id="max_harga" name="max_harga" value="1000000000" />
 							                    <p id="price_show">0 - 1000000000</p>
-								                    <div style="margin: 0 10px;" id="price_range"></div>
+								                    <div class="slider-range" id="price_range"></div>
 								</div>
 								<div class="filter-prop-items">
 									<label>Luas Bangunan</label>
 									     <input type="hidden" id="min_bangunan" name="min_bangunan" value="0" />
 						                    <input type="hidden" id="max_bangunan" name="max_bangunan" value="5000" />
-							                    <p id="bangunan_show">0 - 5000</p>
-								                    <div style="margin: 0 10px;" id="bangunan_range"></div>
+							                    <p id="bangunan_show">0 - 5000 m<sup>2</sup></p>
+								                    <div id="bangunan_range"></div>
 								</div>
 								<div class="filter-prop-items">
 									<label>Luas Tanah</label>
 									     <input type="hidden" id="min_tanah" name="min_tanah" value="0" />
 						                    <input type="hidden" id="max_tanah" name="max_tanah" value="5000" />
-							                    <p id="tanah_show">0 - 5000</p>
-								                    <div style="margin: 0 10px;" id="tanah_range"></div>
+							                    <p id="tanah_show">0 - 5000 m<sup>2</sup></p>
+								                    <div id="tanah_range"></div>
 								</div>
 						
 							</form>
@@ -64,18 +67,12 @@
 					</div>
 				</div>
 				<div class="col-md-8">
-					<div class="row filter_data" id="post-data">
-						<?php $this->load->view('main/perum_scroll', $posts); ?>
+					<?php $this->load->view('main/perum_scroll', $posts); ?>
+					<div id="perum_filter">
+						<div class="loading-properts text-center load-filter" style="margin-top: 40px;">
+							<p class="img-filter" style="display: none;"><img src="<?php echo base_url('assets/img/gifload.gif'); ?>"></p>
+						</div>
 					</div>
-					<div class="loading-properts text-center">
-						<p>
-							<img src="<?php echo base_url('assets/img/loading-properts.gif'); ?>">
-						</p>
-					</div>
-					<!-- <div class="ajax-load text-center">
-						<p><img src="<?php echo base_url('assets/img/gifload.gif'); ?>"></p>
-
-					</div> -->
 				</div>
 			</div>
 		</div>
@@ -86,48 +83,55 @@
 <?php $this->load->view('parts/footer') ?>
 
 <script type="text/javascript">
-
-	// var page = 1;
-	// $(window).scroll(function() {
-	//     if($(window).scrollTop() + $(window).height() >= $(document).height()) {
-	//         loadMoreData(page);
-	//         page++;
-	//     }
-	// });
-
-	// function loadMoreData(page){
-	//   $.ajax({
- //            url: '<?php echo site_url('perumahan/ajax_load?page=') ?>' + page,
- //            type: "get",
- //            beforeSend: function()
- //            {
- //                $('.ajax-load').show();
- //            }
- //        })
- //        .done(function(data)
- //        {
- //            if(data == 0){
- //                $('.ajax-load').html("");
- //                return;
- //            }
- //            $('.ajax-load').hide();
- //            $("#post-data").append(data);
- //        })
- //        .fail(function(jqXHR, ajaxOptions, thrownError)
- //        {
- //              alert('server not responding...');
- //        });
-	// }
-
-
-
-
-
-
-
-
 	$(document).ready(function() {
-        $('.loading-properts').hide();
+        // $('.img-load').hide();
+
+        $(document).on('click','.load-primer',function(){
+	        
+	        var ID = $(this).attr('id');
+	        
+	       	$.ajax({
+	            type:'POST',
+	            url:'<?php echo site_url('perumahan/perum_load_ajax');?>',
+	            data:'id='+ID,
+	           beforeSend: function() {
+			        $('.load-primer').hide();
+	        		$('.img-load').show();
+			    },
+	            success:function(html){
+	                $('#show_more_main'+ID).remove();
+	                $('#test').append(html);
+	            }
+	        });
+	    });
+
+		$(document).on('click','.load-filter',function(){
+	        
+	        var ID = $(this).attr('id');
+	        var action = 'fetch_data';
+	        var min_harga = $('#min_harga').val();
+	        var max_harga = $('#max_harga').val();
+	        var max_bangunan = $('#max_bangunan').val();
+	        var min_bangunan = $('#min_bangunan').val();
+	        var min_tanah = $('#min_tanah').val();
+	        var max_tanah = $('#max_tanah').val();
+	       	var kec = $('#kecamatan').val();
+            var kel = $('#kelurahan').val();
+
+	       	$.ajax({
+	            type:'POST',
+	            url:'<?php echo site_url('perumahan/perum_filter_gan');?>',
+	            data:{action:action, min_harga:min_harga, max_harga:max_harga, max_bangunan:max_bangunan, min_bangunan:min_bangunan, min_tanah:min_tanah, max_tanah:max_tanah, kecamatan:kec, kelurahan:kel, id:ID},
+	           beforeSend: function() {
+			        $('.load-filter').hide();
+	        		$('.img-load-filter').show();
+			    },
+	            success:function(html){
+	                $('#show_more_main_filter'+ID).remove();
+	                $('#perum_filter').append(html);
+	            }
+	        });
+	    });	    
 
 		$('#kecamatan').change(function() {
 			var val_kec = $(this).val();
@@ -154,18 +158,21 @@
 	        var max_tanah = $('#max_tanah').val();
 	        var kelurahan = $('#kelurahan').val();
 			$.ajax({
-	            beforeSend: function()
-	            {
-	                $('.loading-properts').show();
-	            },
 	            url:"<?php echo site_url('perumahan/perum_filt') ?>",
 	            method:"POST",
 	            data:{action:action, min_harga:min_harga, max_harga:max_harga, max_bangunan:max_bangunan, min_bangunan:min_bangunan, min_tanah:min_tanah, max_tanah:max_tanah, kecamatan:val_kec, kelurahan:val_kel},
+	            beforeSend: function()
+	            {
+	                // $('.loading-properts').show();
+	        		// $('.img-load').show();
+	       			 $('.load-filter').show();
+	       			 $('.img-filter').show();
+	            },
 	            success:function(data){
-	            	console.log(val_kec);
-	            	console.log(val_kel);
-
-	                $('.filter_data').html(data);
+	          //   	console.log(val_kec);
+	          //   	console.log(val_kel);
+	                $('#test').remove();
+	                $('#perum_filter').html(data);
 	            }
 	        });
 	    }

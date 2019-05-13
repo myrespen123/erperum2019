@@ -42,9 +42,24 @@ class Model_Pengembang extends CI_Model
 		$this->db->join('sarana_prasarana', 'sarana_prasarana.id_bangunan=bangunan.id_bangunan');
 		$this->db->join('fasilitas', 'fasilitas.id_bangunan=bangunan.id_bangunan');
 		$this->db->join('foto_bangunan', 'foto_bangunan.id_bangunan=bangunan.id_bangunan');
-		$this->db->where('status_publish', 1);
 		$this->db->group_by('bangunan.id_bangunan');
 		$this->db->where('bangunan.id_bangunan', $id);
+		$query = $this->db->get();
+
+		return $query;
+	}
+
+	public function PerumDets($bangunan_slug) {
+		$this->db->distinct();
+		$this->db->select('*');
+		$this->db->from('bangunan');
+		$this->db->join('pengembang', 'bangunan.id_pengembang=pengembang.id_pengembang');
+		// $this->db->join('sarana_prasarana', 'sarana_prasarana.id_bangunan=bangunan.id_bangunan');
+		// $this->db->join('fasilitas', 'fasilitas.id_bangunan=bangunan.id_bangunan');
+		$this->db->join('foto_bangunan', 'foto_bangunan.id_bangunan=bangunan.id_bangunan');
+		$this->db->where('status_publish', 1);
+		$this->db->group_by('bangunan.id_bangunan');
+		$this->db->where('bangunan.bangunan_slug', $bangunan_slug);
 		$query = $this->db->get();
 
 		return $query;
@@ -83,7 +98,6 @@ class Model_Pengembang extends CI_Model
 		return $query;
 	}
 
-
 	public function pick($id) {
 		$this->db->select('*');
 		$this->db->from('pengembang');
@@ -107,6 +121,11 @@ class Model_Pengembang extends CI_Model
 	public function InsertMulti($data = array()) {
 		$InsertMulti = $this->db->insert_batch('foto_bangunan', $data);
 		return $InsertMulti;
+	}
+
+	public function InsertMultiP($data = array()) {
+		$InsertMultiP = $this->db->insert_batch('foto_perumahan', $data);
+		return $InsertMultiP;
 	}
 
 	public function InsertBatch($tableName, $data = array()) {

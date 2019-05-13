@@ -68,9 +68,9 @@
 					<div class="row" id="post-data">
 						<?php $this->load->view('main/perum_scroll', $posts); ?>
 					</div>
-					<div class="ajax-load text-center">
+					<!-- <div class="ajax-load text-center">
 
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>

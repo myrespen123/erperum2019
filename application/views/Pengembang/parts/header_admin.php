@@ -23,6 +23,8 @@
   <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.css') ?>">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/admin/custom-style.css'); ?>">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
+  <link data-require="leaflet@0.7.3" data-semver="0.7.3" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
 </head>
 <body class="hold-transition skin-blue-light sidebar-mini">
 <div class="wrapper">
@@ -45,25 +47,25 @@
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- User Account: style can be found in dropdown.less -->
+          <?php $picture = picture_login($this->session->userdata('id_user'));?>
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="" class="user-image img-fluid" alt="User Image">
-              <span class="hidden-xs"><?= $this->session->userdata('username'); ?></span>
+              <img src="<?= site_url('file/pengembang/images/'.$picture->foto_pengembang);?>" class="user-image img-fluid" alt="User Image>
+              <span class="hidden-xs"><?= $picture->nama_pengembang;?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="" class="img-circle img-fluid" alt="User Image">
-
+                <img src="<?= site_url('file/pengembang/images/'.$picture->foto_pengembang);?>" class="img-circle img-fluid" alt="User Image">
                 <p>
-                  <?= $this->session->userdata('username'); ?>
+                  <?= $picture->nama_pengembang;?>
                   <small>Pengembang</small>
                 </p>
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="<?php echo site_url('Pengembang/data_akun') ?>" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="<?php echo site_url('Login/logout'); ?>" class="btn btn-default btn-flat">Sign out</a>

@@ -12,7 +12,9 @@ class Pengembang extends CI_Controller
 		$this->load->model('Index_Model');
 		$this->load->model('Model_Pengembang');
 		$this->load->model('Model_Select');
-
+		$this->load->helper('Login_Helper');
+		$this->load->library('form_validation');
+		
 		if (!$this->session->userdata('logged_in') == TRUE) {
 			redirect('login');
 		} 
@@ -64,116 +66,141 @@ class Pengembang extends CI_Controller
 	}
 
 	public function perumahan_insert() {
-		$id_user = $this->session->userdata('id_user');
-		$select_dev = $this->db->get_where('pengembang', array('id_user' => $id_user))->row();
-		$id_dev = $select_dev->id_pengembang;
+		$this->form_validation->set_rules('longitude', 'longitude', 'required');
+		$this->form_validation->set_rules('latitude', 'latitude', 'required');
 
-		$id_kecamatan 		= $this->input->post('id_kecamatan');
-		$id_kelurahan 		= $this->input->post('id_kelurahan');
-		$kategori_bangunan 	= $this->input->post('kategori_bangunan');
-		$nama_bangunan		= $this->input->post('nama_bangunan');
-		$deskripsi_bangunan	= $this->input->post('deskripsi_bangunan');
-		$harga_bangunan 	= $this->input->post('harga_bangunan');
-		$lokasi_bangunan 	= $this->input->post('lokasi_bangunan');
-		$luas_bangunan 		= $this->input->post('luas_bangunan');
-		$luas_tanah 		= $this->input->post('luas_tanah');
-		$jumlah_lantai 		= $this->input->post('jumlah_lantai');
-		$jumlah_kamar 		= $this->input->post('jumlah_kamar');
-		$jumlah_kamar_mandi = $this->input->post('jumlah_kamar_mandi');
-		$jumlah_garasi 		= $this->input->post('jumlah_garasi');
-		$listrik 			= $this->input->post('listrik');
-		$status_publish 	= "0";
+		if ($this->form_validation->run() != FALSE) {
+			$id_user = $this->session->userdata('id_user');
+			$select_dev = $this->db->get_where('pengembang', array('id_user' => $id_user))->row();
+			$id_dev = $select_dev->id_pengembang;
 
-		$nama_sarana_prasarana = $this->input->post('nama_sarana_prasarana');
+			$id_kecamatan 		= $this->input->post('id_kecamatan');
+			$id_kelurahan 		= $this->input->post('id_kelurahan');
+			$kategori_bangunan 	= $this->input->post('kategori_bangunan');
+			$nama_bangunan		= $this->input->post('nama_bangunan');
+			$deskripsi_bangunan	= $this->input->post('deskripsi_bangunan');
+			$harga_bangunan 	= $this->input->post('harga_bangunan');
+			$lokasi_bangunan 	= $this->input->post('lokasi_bangunan');
+			$luas_bangunan 		= $this->input->post('luas_bangunan');
+			$luas_tanah 		= $this->input->post('luas_tanah');
+			$jumlah_lantai 		= $this->input->post('jumlah_lantai');
+			$jumlah_kamar 		= $this->input->post('jumlah_kamar');
+			$jumlah_kamar_mandi = $this->input->post('jumlah_kamar_mandi');
+			$jumlah_garasi 		= $this->input->post('jumlah_garasi');
+			$listrik 			= $this->input->post('listrik');
+			$longitude 			= $this->input->post('longitude');
+			$latitude 			= $this->input->post('latitude');
+			$status_publish 	= "0";
 
-		$nama_fasilitas 		= $this->input->post('nama_fasilitas');
+			$string 	= preg_replace('~[^\\pL\d]+~u', '-', $nama_bangunan);
+			$trim 		= trim($string);
+			$pre_slug 	= strtolower(str_replace(" ", "-", $trim));
+			$bangunan_slug = $pre_slug; 
 
-		$data_bangunan = array(
-								'id_pengembang' 		=> $id_dev,
-								'id_kecamatan' 			=> $id_kecamatan,
-								'id_kelurahan' 			=> $id_kelurahan,
-								'kategori_bangunan' 	=> $kategori_bangunan,
-								'nama_bangunan'			=> $nama_bangunan,
-								'deskripsi_bangunan' 	=> $deskripsi_bangunan,
-								'harga_bangunan' 		=> $harga_bangunan,
-								'lokasi_bangunan' 		=> $lokasi_bangunan,
-								'luas_bangunan' 		=> $luas_bangunan,
-								'luas_tanah' 			=> $luas_tanah,
-								'jumlah_lantai' 		=> $jumlah_lantai,
-								'jumlah_kamar' 			=> $jumlah_kamar,
-								'jumlah_kamar_mandi' 	=> $jumlah_kamar_mandi,
-								'jumlah_garasi' 		=> $jumlah_garasi,
-								'listrik' 				=> $listrik,
-								'status_publish' 		=> $status_publish
-							);
 
-		$config['upload_path'] = './file/perumahan/file/';
-		$config['allowed_types'] = 'pdf|jpg|png|jpeg|';
-		$this->load->library('upload', $config);
+			$nama_sarana_prasarana = $this->input->post('nama_sarana_prasarana');
 
-		if (!$this->upload->do_upload('sertifikat')) {
-			$data_bangunan['sertifikat'] = '';
-		} else {
-			$file = $this->upload->data();
-			$data_bangunan['sertifikat'] = $file['file_name'];
-		}
-	
-		$execute_bangunan = $this->Index_Model->Insert('bangunan', $data_bangunan);
+			$nama_fasilitas 		= $this->input->post('nama_fasilitas');
 
-		if ($execute_bangunan == TRUE) {
-			$id_bangunan = $this->db->insert_id();
-
-			if (!empty($_FILES['foto_bangunan']['name'])) {
-				$filescount = count($_FILES['foto_bangunan']['name']);
-
-					for ($i=0; $i < $filescount; $i++) { 
-						$_FILES['file']['name']     = $_FILES['foto_bangunan']['name'][$i];
-		                $_FILES['file']['type']     = $_FILES['foto_bangunan']['type'][$i];
-		                $_FILES['file']['tmp_name'] = $_FILES['foto_bangunan']['tmp_name'][$i];
-		                $_FILES['file']['error']     = $_FILES['foto_bangunan']['error'][$i];
-		                $_FILES['file']['size']     = $_FILES['foto_bangunan']['size'][$i];
-
-		                $configB['upload_path'] = './file/perumahan/images/';
-		                $configB['allowed_types'] = 'pdf|jpg|png|jpeg|';
-
-		                $this->load->library('upload', $configB);
-		                $this->upload->initialize($configB);
-
-		                if ($this->upload->do_upload('file')) {
-		                	$fileData = $this->upload->data();
-		             		$uploadData[$i]['id_bangunan'] = $id_bangunan;
-		                	$uploadData[$i]['foto_bangunan'] = $fileData['file_name'];
-		                }
-					}
-
-					if (!empty($uploadData)) {
-						$insertfoto = $this->Model_Pengembang->InsertMulti($uploadData);
-					}
-			}
-
-			foreach ($nama_sarana_prasarana as $key => $value) {
-				$data_sarana = array(
-									'id_bangunan' 			=> $id_bangunan,
-									'nama_sarana_prasarana' => $nama_sarana_prasarana[$key]
+			$data_bangunan = array(
+									'id_pengembang' 		=> $id_dev,
+									'id_kecamatan' 			=> $id_kecamatan,
+									'id_kelurahan' 			=> $id_kelurahan,
+									'kategori_bangunan' 	=> $kategori_bangunan,
+									'nama_bangunan'			=> $nama_bangunan,
+									'deskripsi_bangunan' 	=> $deskripsi_bangunan,
+									'harga_bangunan' 		=> $harga_bangunan,
+									'lokasi_bangunan' 		=> $lokasi_bangunan,
+									'luas_bangunan' 		=> $luas_bangunan,
+									'luas_tanah' 			=> $luas_tanah,
+									'jumlah_lantai' 		=> $jumlah_lantai,
+									'jumlah_kamar' 			=> $jumlah_kamar,
+									'jumlah_kamar_mandi' 	=> $jumlah_kamar_mandi,
+									'jumlah_garasi' 		=> $jumlah_garasi,
+									'listrik' 				=> $listrik,
+									'longitude' 			=> $longitude,
+									'latitude' 				=> $latitude,
+									'status_publish' 		=> $status_publish,
+									'bangunan_slug' 		=> $bangunan_slug
 								);
 
-				$excute = $this->Index_Model->Insert('sarana_prasarana', $data_sarana);
+			$config['upload_path'] = './file/perumahan/file/';
+			$config['allowed_types'] = 'pdf|jpg|png|jpeg|';
+			$this->load->library('upload', $config);
+
+			if (!$this->upload->do_upload('sertifikat')) {
+				$data_bangunan['sertifikat'] = '';
+			} else {
+				$file = $this->upload->data();
+				$data_bangunan['sertifikat'] = $file['file_name'];
+			}
+		
+			$execute_bangunan = $this->Index_Model->Insert('bangunan', $data_bangunan);
+
+			if ($execute_bangunan == TRUE) {
+				$id_bangunan = $this->db->insert_id();
+
+				if (!empty($_FILES['foto_bangunan']['name'])) {
+					$filescount = count($_FILES['foto_bangunan']['name']);
+
+						for ($i=0; $i < $filescount; $i++) { 
+							$_FILES['file']['name']     = $_FILES['foto_bangunan']['name'][$i];
+			                $_FILES['file']['type']     = $_FILES['foto_bangunan']['type'][$i];
+			                $_FILES['file']['tmp_name'] = $_FILES['foto_bangunan']['tmp_name'][$i];
+			                $_FILES['file']['error']     = $_FILES['foto_bangunan']['error'][$i];
+			                $_FILES['file']['size']     = $_FILES['foto_bangunan']['size'][$i];
+
+			                $configB['upload_path'] = './file/perumahan/images/';
+			                $configB['allowed_types'] = 'pdf|jpg|png|jpeg|';
+
+			                $this->load->library('upload', $configB);
+			                $this->upload->initialize($configB);
+
+			                if ($this->upload->do_upload('file')) {
+			                	$fileData = $this->upload->data();
+			             		$uploadData[$i]['id_bangunan'] = $id_bangunan;
+			                	$uploadData[$i]['foto_bangunan'] = $fileData['file_name'];
+			                }
+						}
+
+						if (!empty($uploadData)) {
+							$insertfoto = $this->Model_Pengembang->InsertMulti($uploadData);
+						}
+				}
+
+				foreach ($nama_sarana_prasarana as $key => $value) {
+					$data_sarana = array(
+										'id_bangunan' 			=> $id_bangunan,
+										'nama_sarana_prasarana' => $nama_sarana_prasarana[$key]
+									);
+
+					$excute = $this->Index_Model->Insert('sarana_prasarana', $data_sarana);
+				}
+
+				foreach ($nama_fasilitas as $fasil => $val_fasil) {
+					$data_fasiliti = array(
+										'id_bangunan' 			=> $id_bangunan,
+										'nama_fasilitas' 		=> $nama_fasilitas[$fasil]
+									);
+					
+					$excute2 = $this->Index_Model->Insert('fasilitas', $data_fasiliti);
+				}
+
+				$this->session->set_flashdata('simpan', 'Berhasil menambah data');
+				redirect('pengembang/data_perumahan', 'refresh');
+			} else {
+				$this->session->set_flashdata('gagal', 'Gagal menambah data');
+				redirect('pengembang/data_perumahan', 'refresh');
 			}
 
-			foreach ($nama_fasilitas as $fasil => $val_fasil) {
-				$data_fasiliti = array(
-									'id_bangunan' 			=> $id_bangunan,
-									'nama_fasilitas' 		=> $nama_fasilitas[$fasil]
-								);
-				
-				$excute2 = $this->Index_Model->Insert('fasilitas', $data_fasiliti);
-			}
-
-			$this->session->set_flashdata('simpan', 'Berhasil menambah data');
-			redirect('pengembang/data_perumahan', 'refresh');
 		} else {
-			$this->session->set_flashdata('gagal', 'Gagal menambah data');
-			redirect('pengembang/data_perumahan', 'refresh');
+			$select_kec = $this->db->get('kecamatan');
+			$select_kel = $this->db->get('kelurahan');
+
+			$data['kecamatan'] = $select_kec->result_array();
+			$data['kelurahan'] = $select_kel->result_array();
+
+			$this->load->view('pengembang/perumahan/perumahan_create', $data);
 		}
 	}
 
@@ -189,67 +216,85 @@ class Pengembang extends CI_Controller
 	}
 
 	public function perumahan_update($id) {
-		$select_cli = $this->db->get_where('bangunan', array('id_bangunan' => $id));
-		$row_cli	= $select_cli->row();
+		$this->form_validation->set_rules('longitude', 'longitude', 'required');
+		$this->form_validation->set_rules('latitude', 'latitude', 'required');
 
-		$id_kecamatan 		= $this->input->post('id_kecamatan');
-		$id_kelurahan 		= $this->input->post('id_kelurahan');
-		$kategori_bangunan 	= $this->input->post('kategori_bangunan');
-		$nama_bangunan		= $this->input->post('nama_bangunan');
-		$deskripsi_bangunan	= $this->input->post('deskripsi_bangunan');
-		$harga_bangunan 	= $this->input->post('harga_bangunan');
-		$lokasi_bangunan 	= $this->input->post('lokasi_bangunan');
-		$luas_bangunan 		= $this->input->post('luas_bangunan');
-		$luas_tanah 		= $this->input->post('luas_tanah');
-		$jumlah_lantai 		= $this->input->post('jumlah_lantai');
-		$jumlah_kamar 		= $this->input->post('jumlah_kamar');
-		$jumlah_kamar_mandi = $this->input->post('jumlah_kamar_mandi');
-		$jumlah_garasi 		= $this->input->post('jumlah_garasi');
-		$listrik 			= $this->input->post('listrik');
+		if ($this->form_validation->run() != FALSE) {
+			$select_cli = $this->db->get_where('bangunan', array('id_bangunan' => $id));
+			$row_cli	= $select_cli->row();
 
-		$data_bangunan = array(
-								'id_kecamatan' 			=> $id_kecamatan,
-								'id_kelurahan' 			=> $id_kelurahan,
-								'kategori_bangunan' 	=> $kategori_bangunan,
-								'nama_bangunan'			=> $nama_bangunan,
-								'deskripsi_bangunan' 	=> $deskripsi_bangunan,
-								'harga_bangunan' 		=> $harga_bangunan,
-								'lokasi_bangunan' 		=> $lokasi_bangunan,
-								'luas_bangunan' 		=> $luas_bangunan,
-								'luas_tanah' 			=> $luas_tanah,
-								'jumlah_lantai' 		=> $jumlah_lantai,
-								'jumlah_kamar' 			=> $jumlah_kamar,
-								'jumlah_kamar_mandi' 	=> $jumlah_kamar_mandi,
-								'jumlah_garasi' 		=> $jumlah_garasi,
-								'listrik' 				=> $listrik
-							);
-		$where = array(
-						'id_bangunan' => $id
-					);
+			$id_kecamatan 		= $this->input->post('id_kecamatan');
+			$id_kelurahan 		= $this->input->post('id_kelurahan');
+			$kategori_bangunan 	= $this->input->post('kategori_bangunan');
+			$nama_bangunan		= $this->input->post('nama_bangunan');
+			$deskripsi_bangunan	= $this->input->post('deskripsi_bangunan');
+			$harga_bangunan 	= $this->input->post('harga_bangunan');
+			$lokasi_bangunan 	= $this->input->post('lokasi_bangunan');
+			$luas_bangunan 		= $this->input->post('luas_bangunan');
+			$luas_tanah 		= $this->input->post('luas_tanah');
+			$jumlah_lantai 		= $this->input->post('jumlah_lantai');
+			$jumlah_kamar 		= $this->input->post('jumlah_kamar');
+			$jumlah_kamar_mandi = $this->input->post('jumlah_kamar_mandi');
+			$jumlah_garasi 		= $this->input->post('jumlah_garasi');
+			$listrik 			= $this->input->post('listrik');
+			$longitude 			= $this->input->post('longitude');
+			$latitude 			= $this->input->post('latitude');
 
-		$config['upload_path'] = './file/perumahan/file/';
-		$config['allowed_types'] = 'pdf|jpg|png|jpeg|';
+			$data_bangunan = array(
+									'id_kecamatan' 			=> $id_kecamatan,
+									'id_kelurahan' 			=> $id_kelurahan,
+									'kategori_bangunan' 	=> $kategori_bangunan,
+									'nama_bangunan'			=> $nama_bangunan,
+									'deskripsi_bangunan' 	=> $deskripsi_bangunan,
+									'harga_bangunan' 		=> $harga_bangunan,
+									'lokasi_bangunan' 		=> $lokasi_bangunan,
+									'luas_bangunan' 		=> $luas_bangunan,
+									'luas_tanah' 			=> $luas_tanah,
+									'jumlah_lantai' 		=> $jumlah_lantai,
+									'jumlah_kamar' 			=> $jumlah_kamar,
+									'jumlah_kamar_mandi' 	=> $jumlah_kamar_mandi,
+									'jumlah_garasi' 		=> $jumlah_garasi,
+									'listrik' 				=> $listrik,
+									'longitude' 			=> $longitude,
+									'latitude' 				=> $latitude
+								);
+			$where = array(
+							'id_bangunan' => $id
+						);
 
-		$this->load->library('upload', $config);
-		if ($this->upload->do_upload('sertifikat')) {
-			if ($row_cli->sertifikat == '') {
-				$file = $this->upload->data();
-				$data_bangunan['sertifikat'] = $file['file_name'];
-			} else {
-				unlink('./file/perumahan/file/'.$row_cli->sertifikat);
-				$file = $this->upload->data();
-				$data_bangunan['sertifikat'] = $file['file_name'];
+			$config['upload_path'] = './file/perumahan/file/';
+			$config['allowed_types'] = 'pdf|jpg|png|jpeg|';
+
+			$this->load->library('upload', $config);
+			if ($this->upload->do_upload('sertifikat')) {
+				if ($row_cli->sertifikat == '') {
+					$file = $this->upload->data();
+					$data_bangunan['sertifikat'] = $file['file_name'];
+				} else {
+					unlink('./file/perumahan/file/'.$row_cli->sertifikat);
+					$file = $this->upload->data();
+					$data_bangunan['sertifikat'] = $file['file_name'];
+				}
 			}
-		}
-	
-		$execute = $this->Index_Model->Update('bangunan', $data_bangunan, $where);
+		
+			$execute = $this->Index_Model->Update('bangunan', $data_bangunan, $where);
 
-			if ($execute == TRUE) {
-				$this->session->set_flashdata('simpan', 'Berhasil mengubah data');
-				redirect('pengembang/data_perumahan', 'refresh');
+				if ($execute == TRUE) {
+					$this->session->set_flashdata('simpan', 'Berhasil mengubah data');
+					redirect('pengembang/data_perumahan', 'refresh');
+				} else {
+					$this->session->set_flashdata('gagal', 'Gagal mengubah data');
+					redirect('pengembang/data_perumahan', 'refresh');
+				}
 			} else {
-				$this->session->set_flashdata('gagal', 'Gagal mengubah data');
-				redirect('pengembang/data_perumahan', 'refresh');
+				$query = $this->db->get_where('bangunan', array('id_bangunan' => $id));
+				$select_kec = $this->db->get('kecamatan');
+				$select_kel = $this->db->get('kelurahan');
+
+				$data['kecamatan'] = $select_kec->result_array();
+				$data['kelurahan'] = $select_kel->result_array();
+				$data['row']  = $query->row(); 
+				$this->load->view('pengembang/perumahan/perumahan_edit', $data);
 			}
 	}
 

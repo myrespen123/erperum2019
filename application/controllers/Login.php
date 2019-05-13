@@ -9,7 +9,7 @@ class Login extends CI_Controller
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('Model_Login');
-
+		$this->load->helper('Login_Helper');
 
 	}
 
@@ -47,6 +47,7 @@ class Login extends CI_Controller
 				if ($this->session->userdata('level') == '1') {
 					redirect('admin');
 				} elseif ($this->session->userdata('level') == '2') {
+					// picture_login($this->session->userdata('id_user'));
 					redirect('pengembang/index');
 				} elseif ($this->session->userdata('level') == '3') {
 					redirect('operator/index');

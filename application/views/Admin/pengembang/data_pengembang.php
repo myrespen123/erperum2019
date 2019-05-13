@@ -74,13 +74,13 @@
 														<i class="fa fa-pencil"></i>
 													</button>
 												</a>
-											    <a class="m-s-5" href="<?php echo site_url('admin/pengembang_delete/'.$val_pengembang['id_pengembang']); ?>">
+											    <a class="m-s-5" href="<?php echo site_url('admin/pengembang_delete/'.$val_pengembang['id_pengembang']); ?>" onclick="return confirm('Yakin ingin menghapus data?');">
 													<button class="btn button-delete">
 														<i class="fa fa-trash"></i>
 													</button>
 												</a>
 											  </div>
-											</div
+											</div>
 										</td>
 					                </tr>
 								<?php endforeach ?>

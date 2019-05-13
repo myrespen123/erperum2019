@@ -98,6 +98,13 @@
 				<?php endforeach ?>
 
 			</div>
+			<div class="row">
+				<div class="button-middle">
+					<a href="#">
+						<button type="button" class="button-primer">Lihat Semua</button>
+					</a>
+				</div>
+			</div>
 		</div>
 	</section>
 

@@ -19,7 +19,6 @@
 			</div>
 		<?php endif ?>
 	</div>
-	</section> -->
 
 	<section class="message">
 		<div class="container">

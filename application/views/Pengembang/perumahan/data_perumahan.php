@@ -100,7 +100,7 @@
 													</button>
 												</a>
 											  </div>
-											</div
+											</div>
 										</td>
 					                </tr>
 								<?php endforeach ?>
