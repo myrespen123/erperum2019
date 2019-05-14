@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2019 at 07:35 AM
+-- Generation Time: May 14, 2019 at 08:06 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -28,16 +28,21 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `bangunan` (
   `id_bangunan` int(11) NOT NULL,
+  `id_perumahan` int(11) NOT NULL,
   `id_pengembang` int(11) DEFAULT NULL,
   `id_kecamatan` int(11) NOT NULL,
   `id_kelurahan` int(11) NOT NULL,
   `kategori_bangunan` varchar(100) NOT NULL,
+  `tipe_bangunan` varchar(200) NOT NULL,
   `nama_bangunan` varchar(100) NOT NULL,
   `deskripsi_bangunan` text NOT NULL,
   `harga_bangunan` int(11) NOT NULL,
   `lokasi_bangunan` text NOT NULL,
+  `jumlah_tersedia` varchar(200) NOT NULL,
   `luas_bangunan` int(11) NOT NULL,
   `luas_tanah` int(11) NOT NULL,
+  `dimensi_bangunan` varchar(50) NOT NULL,
+  `dimensi_tanah` varchar(50) NOT NULL,
   `jumlah_lantai` varchar(20) NOT NULL,
   `jumlah_kamar` varchar(20) NOT NULL,
   `jumlah_kamar_mandi` varchar(20) NOT NULL,
@@ -54,13 +59,11 @@ CREATE TABLE `bangunan` (
 -- Dumping data for table `bangunan`
 --
 
-INSERT INTO `bangunan` (`id_bangunan`, `id_pengembang`, `id_kecamatan`, `id_kelurahan`, `kategori_bangunan`, `nama_bangunan`, `deskripsi_bangunan`, `harga_bangunan`, `lokasi_bangunan`, `luas_bangunan`, `luas_tanah`, `jumlah_lantai`, `jumlah_kamar`, `jumlah_kamar_mandi`, `jumlah_garasi`, `listrik`, `longitude`, `latitude`, `sertifikat`, `status_publish`, `bangunan_slug`) VALUES
-(1, 7, 6, 16, '1', 'Rumah With Kecamatan', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\n tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\n quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\n consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\n cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\n proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 450000000, 'Jalan Kadrie Onenge No. 999', 300, 300, '3', '5', '5', '2', '2100', '', '', 'Screenshot_(144).png', '1', 'rumah-with'),
-(2, 7, 6, 14, '1', 'Rumah with Keluarahan', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 210000000, 'Pelabuhan Samarinda', 500, 500, '2', '3', '2', '1', '900', '', '', 'PERSYARATAN_DAN_KETENTUAN_LOMBA.pdf', '1', 'rumah-kel'),
-(4, 7, 9, 40, '1', 'Nice House With Good Material', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 540000000, 'Jalan Terluk lerong', 700, 500, '2', '5', '3', '1', '2100', '', '', 'PERSYARATAN_DAN_KETENTUAN_LOMBA2.pdf', '1', 'nice-house'),
-(5, 7, 5, 6, '1', 'rumah 2018', 'deksiprsi', 450000000, 'sungai keledang', 36, 100, '2', '4', '2', '1', '900', '117.10357629858322', '-0.488253224627087', 'PERSYARATAN_DAN_KETENTUAN_LOMBA3.pdf', '1', 'rumah-2018'),
-(10, 7, 2, 3, '1', 'Perumahan Perumahan', 'preg_replace(\'~[^\\\\pL\\d]+~u\', \'-\', $text);preg_replace(\'~[^\\\\pL\\d]+~u\', \'-\', $text);preg_replace(\'~[^\\\\pL\\d]+~u\', \'-\', $text);preg_replace(\'~[^\\\\pL\\d]+~u\', \'-\', $text);preg_replace(\'~[^\\\\pL\\d]+~u\', \'-\', $text);preg_replace(\'~[^\\\\pL\\d]+~u\', \'-\', $text);preg_replace(\'~[^\\\\pL\\d]+~u\', \'-\', $text);preg_replace(\'~[^\\\\pL\\d]+~u\', \'-\', $text);', 990000000, 'preg_replace(\'~[^\\\\pL\\d]+~u\', \'-\', $text);', 90, 100, '2', '4', '2', '1', '900', '117.13969977551619', '-0.4903661509407442', 'background_website_perumahan1.png', '1', 'perumahan-perumahan'),
-(13, 7, 9, 39, '1', 'perumahan murah1', 'deskripsi', 150000000, 'perumahan gawl', 80, 100, '4', '2', '2', '1', '900', '117.13781414000005', '-0.49807364609655735', 'automation.png', '1', 'perumahan-murah');
+INSERT INTO `bangunan` (`id_bangunan`, `id_perumahan`, `id_pengembang`, `id_kecamatan`, `id_kelurahan`, `kategori_bangunan`, `tipe_bangunan`, `nama_bangunan`, `deskripsi_bangunan`, `harga_bangunan`, `lokasi_bangunan`, `jumlah_tersedia`, `luas_bangunan`, `luas_tanah`, `dimensi_bangunan`, `dimensi_tanah`, `jumlah_lantai`, `jumlah_kamar`, `jumlah_kamar_mandi`, `jumlah_garasi`, `listrik`, `longitude`, `latitude`, `sertifikat`, `status_publish`, `bangunan_slug`) VALUES
+(9, 6, 7, 3, 21, 'MBR', '36', 'Rumah MBR murah', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 120000000, 'Jalan Dama', '200', 120, 130, '10 x 12', '10 x 12', '1', '2', '2', '1', '900', '', '', '', '1', 'rumah-mbr-murah-19050285'),
+(10, 6, 7, 3, 21, 'NON MBR', '45', 'Rumah hunian sederhana', '-', 250000000, 'Jalan Dama', '100', 200, 210, '20 x 10', '21 x 10', '2', '3', '2', '1', '4400', '', '', '', '1', 'rumah-hunian-sederhana-190422945'),
+(11, 6, 7, 3, 21, 'NON MBR', '45', 'Rumah hunian sederhana', '-', 250000000, 'Jalan Dama', '100', 200, 210, '20 x 10', '21 x 10', '2', '3', '2', '1', '4400', '', '', '', '1', 'rumah-hunian-sederhana-190422159'),
+(12, 9, 7, 5, 6, 'MBR', '45', 'Rumah MBR keren', '-', 50000000, 'Jalan Keledang', '5', 200, 220, '20 x 10', '20 x 11', '1', '1', '1', '3', '4400', '', '', '', '0', 'rumah-mbr-keren-190502395');
 
 -- --------------------------------------------------------
 
@@ -74,21 +77,33 @@ CREATE TABLE `fasilitas` (
   `nama_fasilitas` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `fasilitas`
+-- Table structure for table `fasilitas_perumahan`
 --
 
-INSERT INTO `fasilitas` (`id_fasilitas`, `id_bangunan`, `nama_fasilitas`) VALUES
-(1, 1, 'fasilitas'),
-(2, 1, 'fasilitas2'),
-(3, 1, 'fasilitas3'),
-(4, 2, 'atm'),
-(6, 4, 'keamanan 24 jam'),
-(7, 5, 'fasilitas2'),
-(8, 5, 'fasilitas3'),
-(16, 10, 'Kolam Renang'),
-(17, 10, 'Puskesmas'),
-(20, 13, 'jembatan');
+CREATE TABLE `fasilitas_perumahan` (
+  `id_fasilitas_perumahan` int(11) NOT NULL,
+  `id_perumahan` int(11) NOT NULL,
+  `nama_fasilitas_perumahan` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `fasilitas_perumahan`
+--
+
+INSERT INTO `fasilitas_perumahan` (`id_fasilitas_perumahan`, `id_perumahan`, `nama_fasilitas_perumahan`) VALUES
+(5, 7, 'Fasilitas'),
+(6, 8, 'Fasilitas'),
+(9, 6, 'Fasilitas'),
+(10, 6, 'Fasilitas12'),
+(11, 1, 'Fasilitas'),
+(12, 9, 'Fasilitas'),
+(13, 10, 'Rumah Sehat'),
+(14, 11, 'Fasilitas'),
+(15, 12, 'Rumah Sehat'),
+(16, 13, 'Fasilitas');
 
 -- --------------------------------------------------------
 
@@ -99,25 +114,59 @@ INSERT INTO `fasilitas` (`id_fasilitas`, `id_bangunan`, `nama_fasilitas`) VALUES
 CREATE TABLE `foto_bangunan` (
   `id_foto_bangunan` int(11) NOT NULL,
   `id_bangunan` int(11) NOT NULL,
-  `foto_bangunan` text NOT NULL
+  `foto_bangunan` text NOT NULL,
+  `level_foto` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `foto_bangunan`
 --
 
-INSERT INTO `foto_bangunan` (`id_foto_bangunan`, `id_bangunan`, `foto_bangunan`) VALUES
-(1, 1, 'Screenshot_(1).png'),
-(2, 1, 'Screenshot_(3).png'),
-(6, 4, 'Screenshot_(85).png'),
-(22, 2, 'rumah.jpg'),
-(23, 2, 'rumah2.jpg'),
-(24, 10, 'rumah1.jpg'),
-(25, 5, 'rumah21.jpg'),
-(26, 2, 'november_2017.jpg'),
-(27, 2, 'home_slider_1.jpg'),
-(28, 13, 'rumah22.jpg'),
-(29, 13, 'rumah4.jpg');
+INSERT INTO `foto_bangunan` (`id_foto_bangunan`, `id_bangunan`, `foto_bangunan`, `level_foto`) VALUES
+(9, 9, 'november_2017.jpg', '0'),
+(12, 11, 'rumah21.jpg', '0'),
+(14, 9, 'rumah3.jpg', '0'),
+(15, 10, 'home_slider_1.jpg', '1'),
+(16, 10, 'november_20171.jpg', '0'),
+(17, 11, 'rumah.jpg', '1'),
+(18, 9, 'Top-60-Employee-Engagement-image24-1024x511.png', '1'),
+(19, 12, 'Screenshot_(6).png', '1'),
+(20, 12, 'Screenshot_(5).png', '0');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `foto_perumahan`
+--
+
+CREATE TABLE `foto_perumahan` (
+  `id_foto_perumahan` int(11) NOT NULL,
+  `id_perumahan` int(11) NOT NULL,
+  `foto_perumahan` varchar(200) NOT NULL,
+  `status_foto` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `foto_perumahan`
+--
+
+INSERT INTO `foto_perumahan` (`id_foto_perumahan`, `id_perumahan`, `foto_perumahan`, `status_foto`) VALUES
+(16, 7, 'Screenshot_(1).png', '0'),
+(18, 6, 'Screenshot_(6).png', '0'),
+(19, 1, 'sports-time-woman-run-running-track-against-city-background-modern-vector-illustration-concept-woman-run-running-track-131162438.jpg', '0'),
+(20, 1, 'home_slider_1.jpg', '1'),
+(21, 6, 'rumah2.jpg', '0'),
+(22, 7, 'rumah21.jpg', '1'),
+(24, 6, 'november_20171.jpg', '1'),
+(25, 9, 'Screenshot_(11).png', '0'),
+(26, 9, 'Screenshot_(9).png', '1'),
+(27, 10, 'Screenshot_(28).png', '0'),
+(28, 10, 'Screenshot_(29).png', '1'),
+(29, 11, 'Screenshot_(25).png', '0'),
+(30, 11, 'Screenshot_(32).png', '1'),
+(31, 12, 'Screenshot_(2).png', '1'),
+(32, 12, 'Screenshot_(6)1.png', '0'),
+(33, 13, 'Screenshot_(25)1.png', '1');
 
 -- --------------------------------------------------------
 
@@ -320,6 +369,8 @@ CREATE TABLE `pengembang` (
   `telepon_pengembang` varchar(15) NOT NULL,
   `email_pengembang` varchar(100) NOT NULL,
   `alamat_pengembang` text NOT NULL,
+  `pengembang_slug` varchar(255) NOT NULL,
+  `ijin_perusahaan` varchar(200) NOT NULL,
   `foto_pengembang` text NOT NULL,
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -328,10 +379,11 @@ CREATE TABLE `pengembang` (
 -- Dumping data for table `pengembang`
 --
 
-INSERT INTO `pengembang` (`id_pengembang`, `nik_pengembang`, `nama_pengembang`, `telepon_pengembang`, `email_pengembang`, `alamat_pengembang`, `foto_pengembang`, `id_user`) VALUES
-(6, '01283981028', 'nama', '0823123121', 'emaaail@email.com1', 'jalan alamat1', 'logo-stmik.jpg', 16),
-(7, '6473839303183785', 'Iqbal wahyudi1', '082352260345', 'iqbal.wahyudi_25@gmail.com', 'jalan m.said', 'auth-img.jpg', 17),
-(8, '6472939181281823', 'Charlotte Von Einsbern', '08235227182', 'email@email.com', 'jalan alamat', 'Screenshot_(4).png', 19);
+INSERT INTO `pengembang` (`id_pengembang`, `nik_pengembang`, `nama_pengembang`, `telepon_pengembang`, `email_pengembang`, `alamat_pengembang`, `pengembang_slug`, `ijin_perusahaan`, `foto_pengembang`, `id_user`) VALUES
+(6, '01283981028', 'nama', '0823123121', 'emaaail@email.com1', 'jalan alamat1', '', '', 'logo-stmik.jpg', 16),
+(7, '6473839303183785', 'Iqbal wahyudi', '082352260345', 'iqbal.wahyudi_25@gmail.com', 'jalan m.said', 'iqbal-wahyudi-190430784', 'rumah.jpg', 'willsmith_actor.jpg', 17),
+(8, '6472939181281823', 'Charlotte Von Einsbern', '08235227182', 'email@email.com', 'jalan alamat', '', '', 'Screenshot_(4).png', 19),
+(9, '23489890890231', 'Jake Emblacne', '08236220981', 'pengembang@email.com1', 'alamat1', '', 'construction-worker.png', 'curve-2.png', 21);
 
 -- --------------------------------------------------------
 
@@ -342,11 +394,32 @@ INSERT INTO `pengembang` (`id_pengembang`, `nik_pengembang`, `nama_pengembang`, 
 CREATE TABLE `perumahan` (
   `id_perumahan` int(11) NOT NULL,
   `id_pengembang` int(11) NOT NULL,
+  `id_kecamatan` int(11) NOT NULL,
+  `id_kelurahan` int(11) NOT NULL,
   `nama_perumahan` varchar(200) NOT NULL,
+  `deskripsi_perumahan` text NOT NULL,
   `lokasi` text NOT NULL,
   `longitude` varchar(200) NOT NULL,
-  `latitude` varchar(200) NOT NULL
+  `latitude` varchar(200) NOT NULL,
+  `legalitas` varchar(200) NOT NULL,
+  `slug` varchar(200) NOT NULL,
+  `status_perumahan` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `perumahan`
+--
+
+INSERT INTO `perumahan` (`id_perumahan`, `id_pengembang`, `id_kecamatan`, `id_kelurahan`, `nama_perumahan`, `deskripsi_perumahan`, `lokasi`, `longitude`, `latitude`, `legalitas`, `slug`, `status_perumahan`) VALUES
+(1, 7, 2, 2, 'Perumahan Sejahtera1', '-', 'Lokasi perumahan disini', '117.03207022926154', '-0.5507962787262386', '117.16033352731438', 'perumahan-sejahtera1-190430969', '1'),
+(6, 7, 3, 21, 'Perumahan Damai Sejahtera', 'opasdjkasopdasdoopasjdopjasdpjop', 'Jalan Dama', '117.11020840523383', '-0.5580592583990835', 'construction-worker.png', 'perumahan-damai-sejahtera-190513158', '1'),
+(7, 7, 6, 14, 'Perumahan Damai1', '', 'Jalan Graha Indah', '117.13757260482294', '-0.49870532421209646', 'automation.png', 'perumahan-damai1-190422649', '1'),
+(8, 7, 9, 37, 'Perumahan Hills', '', 'Jalan Graha Indaha', '117.29478281629076', '-0.5655634313352635', 'curve-24.png', 'perumahan-hills-190416579', '0'),
+(9, 7, 5, 6, 'Perumahan Keren', '', 'Jalan Keledang', '117.30434045124355', '-0.45543945164118327', '1556180793388.jpg', 'perumahan-keren-190502690', '1'),
+(10, 7, 9, 38, 'Perumahan Tes', '', 'Jalan Karang Asam', '117.03502072212723', '-0.4547231596136072', 'Screenshot_(21).png', 'perumahan-tes-190502770', '0'),
+(11, 7, 3, 21, 'Perumahan Damaix', '', 'Jalan Dama', '117.03055752632622', '-0.4729186692780587', 'Screenshot_(9).png', 'perumahan-damaix-190502184', '0'),
+(12, 7, 2, 2, 'Perumahan Hillsl', '', 'Jalan Graha Indah', '117.21457852242747', '-0.450260102997845', 'Screenshot_(23).png', 'perumahan-hillsl-190502625', '0'),
+(13, 7, 4, 54, 'Perumahan Vrindavan', 'deskripsi1', 'Jalan Keledang', '117.08789242622606', '-0.48115812977056294', 'Screenshot_(28).png', 'perumahan-vrindavan-190507826', '0');
 
 -- --------------------------------------------------------
 
@@ -360,22 +433,33 @@ CREATE TABLE `sarana_prasarana` (
   `nama_sarana_prasarana` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `sarana_prasarana`
+-- Table structure for table `sarana_prasarana_perumahan`
 --
 
-INSERT INTO `sarana_prasarana` (`id_sarana_prasarana`, `id_bangunan`, `nama_sarana_prasarana`) VALUES
-(1, 1, 'sarana'),
-(2, 1, 'sarana2'),
-(3, 2, 'keamanan 24 jam'),
-(5, 4, 'keamanan 24 jam'),
-(6, 5, 'sarna1'),
-(7, 5, 'sarna2'),
-(8, 1, 'saran3'),
-(17, 10, 'Lapangan Bola'),
-(18, 10, 'Tempat Parkir Umum'),
-(21, 13, 'lapangan'),
-(22, 13, 'parkiran umum');
+CREATE TABLE `sarana_prasarana_perumahan` (
+  `id_sarana_prasarana_perumahan` int(11) NOT NULL,
+  `id_perumahan` int(11) NOT NULL,
+  `nama_sarana_prasarana_perumahan` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sarana_prasarana_perumahan`
+--
+
+INSERT INTO `sarana_prasarana_perumahan` (`id_sarana_prasarana_perumahan`, `id_perumahan`, `nama_sarana_prasarana_perumahan`) VALUES
+(6, 8, 'Sarana'),
+(9, 6, 'Mushola'),
+(10, 6, 'Lapangan Bola'),
+(11, 1, 'Lapangan Bola'),
+(12, 7, 'Sarana'),
+(13, 9, 'Sarana'),
+(14, 10, 'Sarana'),
+(15, 11, 'Sarana'),
+(16, 12, 'Sarana'),
+(17, 13, 'Sarana');
 
 -- --------------------------------------------------------
 
@@ -407,6 +491,33 @@ INSERT INTO `setting` (`id_setting`, `nama_website`, `deskripsi_website`, `sloga
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `spesifikasi_rumah`
+--
+
+CREATE TABLE `spesifikasi_rumah` (
+  `id_spesifikasi_rumah` int(11) NOT NULL,
+  `id_bangunan` int(11) NOT NULL,
+  `nama_spesifikasi_rumah` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `spesifikasi_rumah`
+--
+
+INSERT INTO `spesifikasi_rumah` (`id_spesifikasi_rumah`, `id_bangunan`, `nama_spesifikasi_rumah`) VALUES
+(15, 9, 'spesifikasi rumah 40'),
+(18, 11, 'Gazebo'),
+(19, 11, 'Halaman luas'),
+(20, 9, 'spesifikasi rumah 3'),
+(21, 9, 'spesifikasi rumah 2'),
+(22, 10, 'spesifikasi rumah 3'),
+(23, 10, 'spesifikasi rumah 2'),
+(24, 10, 'spesifikasi rumah 40'),
+(25, 12, 'spesifikasi rumah 3');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -425,9 +536,12 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id_user`, `username`, `password`, `level`, `status`) VALUES
 (1, 'admin', '$2y$10$Ulm8EOyVxp29rkF4UpOPSesezZ7n5LA.n5bpECrnkEgK.tNTYfHO.', '1', 1),
 (16, 'emaaasil@email.com', '$2y$10$O11DvMKYkN2K6VyWa0MDN.DIjp.mBWuoHCG3NG4M1TdITN6yni9I2', '2', 0),
-(17, 'pengembang', '$2y$10$5GFJ9cLPXLdpn4LLh1YQ5OYESiJcnKD5yGmhPl1/s74lXNIIjmZHC', '2', 1),
+(17, 'pengembang', '$2y$10$kBRQWc1PM4v3Wgd1k7QAAuKP0sEh3gPqG6EW//Aig0hxyk1hNTN/6', '2', 1),
 (18, 'operator', '$2y$10$LBeUI2ZYQtIrqio2SmOaWuD3UbcHbNnXto7xYeFS4N2o5kxarj/ga', '3', 1),
-(19, 'email@email.com', '$2y$10$RCIm3Hqj.9TaRF6QyvX2f.k2tUpF7tWNShu4s8fbJrhSTxpwaBz..', '2', 1);
+(19, 'email@email.com', '$2y$10$RCIm3Hqj.9TaRF6QyvX2f.k2tUpF7tWNShu4s8fbJrhSTxpwaBz..', '2', 1),
+(21, 'pengembang@email.com', '$2y$10$quZBvRKwMtua0CE46u9a0e7lCZQ/LUxExDi5.NyRUz0FKDdUcUIGq', '2', 1),
+(22, 'username', '$2y$10$0Va1.tAQSd6eLnq9.uhdVO.UtH9ao4NXWDtfFB2PDFcUPI3PMrstG', '2', 1),
+(24, 'admins123', '$2y$10$PX4fDdUbmg6vrd6zqjEB.Oem6qcVg1lFg47lOok3YIkFZLc42.ksK', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -452,7 +566,8 @@ ALTER TABLE `bangunan`
   ADD PRIMARY KEY (`id_bangunan`),
   ADD KEY `id_pengembang` (`id_pengembang`),
   ADD KEY `id_kecamatan` (`id_kecamatan`),
-  ADD KEY `id_kelurahan` (`id_kelurahan`);
+  ADD KEY `id_kelurahan` (`id_kelurahan`),
+  ADD KEY `id_perumahan` (`id_perumahan`);
 
 --
 -- Indexes for table `fasilitas`
@@ -462,11 +577,25 @@ ALTER TABLE `fasilitas`
   ADD KEY `id_bangunan` (`id_bangunan`);
 
 --
+-- Indexes for table `fasilitas_perumahan`
+--
+ALTER TABLE `fasilitas_perumahan`
+  ADD PRIMARY KEY (`id_fasilitas_perumahan`),
+  ADD KEY `id_perumahan` (`id_perumahan`);
+
+--
 -- Indexes for table `foto_bangunan`
 --
 ALTER TABLE `foto_bangunan`
   ADD PRIMARY KEY (`id_foto_bangunan`),
   ADD KEY `id_bangunan` (`id_bangunan`);
+
+--
+-- Indexes for table `foto_perumahan`
+--
+ALTER TABLE `foto_perumahan`
+  ADD PRIMARY KEY (`id_foto_perumahan`),
+  ADD KEY `id_perumahan` (`id_perumahan`);
 
 --
 -- Indexes for table `kecamatan`
@@ -517,7 +646,10 @@ ALTER TABLE `pengembang`
 -- Indexes for table `perumahan`
 --
 ALTER TABLE `perumahan`
-  ADD PRIMARY KEY (`id_perumahan`);
+  ADD PRIMARY KEY (`id_perumahan`),
+  ADD KEY `id_pengembang` (`id_pengembang`),
+  ADD KEY `id_kecamatan` (`id_kecamatan`),
+  ADD KEY `id_kelurahan` (`id_kelurahan`);
 
 --
 -- Indexes for table `sarana_prasarana`
@@ -527,10 +659,24 @@ ALTER TABLE `sarana_prasarana`
   ADD KEY `id_bangunan` (`id_bangunan`);
 
 --
+-- Indexes for table `sarana_prasarana_perumahan`
+--
+ALTER TABLE `sarana_prasarana_perumahan`
+  ADD PRIMARY KEY (`id_sarana_prasarana_perumahan`),
+  ADD KEY `id_perumahan` (`id_perumahan`);
+
+--
 -- Indexes for table `setting`
 --
 ALTER TABLE `setting`
   ADD PRIMARY KEY (`id_setting`);
+
+--
+-- Indexes for table `spesifikasi_rumah`
+--
+ALTER TABLE `spesifikasi_rumah`
+  ADD PRIMARY KEY (`id_spesifikasi_rumah`),
+  ADD KEY `id_bangunan` (`id_bangunan`);
 
 --
 -- Indexes for table `user`
@@ -555,17 +701,27 @@ ALTER TABLE `wishlist`
 -- AUTO_INCREMENT for table `bangunan`
 --
 ALTER TABLE `bangunan`
-  MODIFY `id_bangunan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_bangunan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `fasilitas`
 --
 ALTER TABLE `fasilitas`
-  MODIFY `id_fasilitas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_fasilitas` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `fasilitas_perumahan`
+--
+ALTER TABLE `fasilitas_perumahan`
+  MODIFY `id_fasilitas_perumahan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `foto_bangunan`
 --
 ALTER TABLE `foto_bangunan`
-  MODIFY `id_foto_bangunan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id_foto_bangunan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+--
+-- AUTO_INCREMENT for table `foto_perumahan`
+--
+ALTER TABLE `foto_perumahan`
+  MODIFY `id_foto_perumahan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT for table `kecamatan`
 --
@@ -600,27 +756,37 @@ ALTER TABLE `masyarakat`
 -- AUTO_INCREMENT for table `pengembang`
 --
 ALTER TABLE `pengembang`
-  MODIFY `id_pengembang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_pengembang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `perumahan`
 --
 ALTER TABLE `perumahan`
-  MODIFY `id_perumahan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_perumahan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `sarana_prasarana`
 --
 ALTER TABLE `sarana_prasarana`
-  MODIFY `id_sarana_prasarana` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_sarana_prasarana` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `sarana_prasarana_perumahan`
+--
+ALTER TABLE `sarana_prasarana_perumahan`
+  MODIFY `id_sarana_prasarana_perumahan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `setting`
 --
 ALTER TABLE `setting`
   MODIFY `id_setting` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT for table `spesifikasi_rumah`
+--
+ALTER TABLE `spesifikasi_rumah`
+  MODIFY `id_spesifikasi_rumah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+--
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `wishlist`
 --
@@ -636,7 +802,8 @@ ALTER TABLE `wishlist`
 ALTER TABLE `bangunan`
   ADD CONSTRAINT `bangunan_ibfk_4` FOREIGN KEY (`id_pengembang`) REFERENCES `pengembang` (`id_pengembang`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `bangunan_ibfk_5` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id_kecamatan`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `bangunan_ibfk_6` FOREIGN KEY (`id_kelurahan`) REFERENCES `kelurahan` (`id_kelurahan`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `bangunan_ibfk_6` FOREIGN KEY (`id_kelurahan`) REFERENCES `kelurahan` (`id_kelurahan`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `bangunan_ibfk_7` FOREIGN KEY (`id_perumahan`) REFERENCES `perumahan` (`id_perumahan`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `fasilitas`
@@ -645,10 +812,22 @@ ALTER TABLE `fasilitas`
   ADD CONSTRAINT `fasilitas_ibfk_1` FOREIGN KEY (`id_bangunan`) REFERENCES `bangunan` (`id_bangunan`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `fasilitas_perumahan`
+--
+ALTER TABLE `fasilitas_perumahan`
+  ADD CONSTRAINT `fasilitas_perumahan_ibfk_1` FOREIGN KEY (`id_perumahan`) REFERENCES `perumahan` (`id_perumahan`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `foto_bangunan`
 --
 ALTER TABLE `foto_bangunan`
   ADD CONSTRAINT `foto_bangunan_ibfk_1` FOREIGN KEY (`id_bangunan`) REFERENCES `bangunan` (`id_bangunan`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `foto_perumahan`
+--
+ALTER TABLE `foto_perumahan`
+  ADD CONSTRAINT `foto_perumahan_ibfk_1` FOREIGN KEY (`id_perumahan`) REFERENCES `perumahan` (`id_perumahan`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `kelurahan`
@@ -669,10 +848,30 @@ ALTER TABLE `pengembang`
   ADD CONSTRAINT `pengembang_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON UPDATE CASCADE;
 
 --
+-- Constraints for table `perumahan`
+--
+ALTER TABLE `perumahan`
+  ADD CONSTRAINT `perumahan_ibfk_1` FOREIGN KEY (`id_pengembang`) REFERENCES `pengembang` (`id_pengembang`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `perumahan_ibfk_2` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id_kecamatan`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `perumahan_ibfk_3` FOREIGN KEY (`id_kelurahan`) REFERENCES `kelurahan` (`id_kelurahan`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
 -- Constraints for table `sarana_prasarana`
 --
 ALTER TABLE `sarana_prasarana`
   ADD CONSTRAINT `sarana_prasarana_ibfk_1` FOREIGN KEY (`id_bangunan`) REFERENCES `bangunan` (`id_bangunan`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `sarana_prasarana_perumahan`
+--
+ALTER TABLE `sarana_prasarana_perumahan`
+  ADD CONSTRAINT `sarana_prasarana_perumahan_ibfk_1` FOREIGN KEY (`id_perumahan`) REFERENCES `perumahan` (`id_perumahan`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `spesifikasi_rumah`
+--
+ALTER TABLE `spesifikasi_rumah`
+  ADD CONSTRAINT `spesifikasi_rumah_ibfk_1` FOREIGN KEY (`id_bangunan`) REFERENCES `bangunan` (`id_bangunan`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `wishlist`
