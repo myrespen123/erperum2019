@@ -52,6 +52,10 @@ body {
 	text-transform: capitalize;
 }
 
+.text-center {
+	text-align: center;
+}
+
 /*close flex*/
 
 /*width*/
@@ -98,6 +102,10 @@ body {
 
 .m-b-10 {
 	margin-bottom: 10px;
+}
+
+.m-b-20 {
+	margin-bottom: 20px;
 }
 
 .m-b-5 {
@@ -484,6 +492,10 @@ body {
 	margin-bottom: 20px;
 	position: relative;
 	transition: 0.2s ease-in-out;
+}
+
+.proper-item figcaption {
+	background: #fff;
 }
 
 .proper-item:hover {
@@ -969,7 +981,7 @@ textarea.input-contact {
 /*DEV DETAILS*/
 
 .developer-details {
-
+	background: #fcfcfc;
 }
 
 .devdet-head {
@@ -1595,12 +1607,23 @@ textarea.input-contact {
 /*ESTATE*/
 
 .estate-min {
-	width: 90%;
+	width: 100%;
 	margin-bottom: 30px;
-	/*background: #edeff4;*/
-	background-color: #f7fdff;
+	background: #fff;
+	/*background-color: #f7fdff;*/
 	transition: 0.3s ease-in-out;
-	border: 1px solid #f5f5f5
+	border: 1px solid #f5f5f5;
+	transition: 0.3s ease-in-out;
+	font-family: 'Raleway', sans-serif;
+}
+
+.estate-min-item {
+	padding: 20px 0;
+}
+
+.estate-min:hover {
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+	transition: 0.3s ease-in-out;
 }
 
 .estate-min:hover {
@@ -1616,18 +1639,30 @@ textarea.input-contact {
 
 .estate-min-img img {
 	width: 100%;
-	height: 270px;
+	/*height: 270px;*/
+	height: 100%;
 	object-fit: cover;
 }
 
 .estate-min-info {
-	padding: 20px;
+	padding: 0 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100%;
 }
 
 .estate-min-title {
-	color: #6495ed;
+	/*color: #6495ed;*/
+	color: #333;
 	margin-bottom: 0;
-	font-size: 27px;
+	font-size: 30px;
+	transition: 0.3s ease-in-out;
+}
+
+.estate-min-title:hover {
+	color: #2196f3;
+	transition: 0.3s ease-in-out;
 }
 
 .estate-min-location {
@@ -1656,8 +1691,8 @@ textarea.input-contact {
 }
 
 .estate-min-facilities .estate-fac-item {
-	/*background: #34adff;*/
-	background: #ff6b3d;
+	background: #34adff;
+	/*background: #ff6b3d;*/
 	color: #fff;
 }
 
@@ -1669,7 +1704,38 @@ textarea.input-contact {
 
 .estate-min-properti {
 	font-size: 30px;
-    color: #ff5722
+    /*color: #ff5722;*/
+    color: #2196f3;
+}
+
+.properti-inestate {
+	background: #f6fcff;
+}
+
+.big-title {
+	text-align: center;
+	margin-bottom: 100px;
+}
+
+.estate-min-link {
+	padding-top: 20px;
+	border-top: 1px solid #eee;
+	display: flex;
+	align-items: center;
+}
+
+.estate-min-link a {
+	font-size: 17px;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-family: 'Raleway', sans-serif;
+	transition: 0.3s ease-in-out;
+	color: #333;
+}
+
+.estate-min-link a:hover {
+	color: #2196f3;
+	transition: 0.3s ease-in-out;
 }
 
 /*ENDS ESTATE*/

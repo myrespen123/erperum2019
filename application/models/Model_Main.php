@@ -106,6 +106,22 @@ class Model_Main extends CI_Model
 		return $query;
 	}
 
+	public function PropertiEstate($id) {
+		$this->db->distinct();
+		$this->db->from('bangunan');
+		$this->db->join('pengembang', 'bangunan.id_pengembang=pengembang.id_pengembang');
+		$this->db->join('perumahan', 'bangunan.id_perumahan=perumahan.id_perumahan');
+		$this->db->join('spesifikasi_rumah', 'spesifikasi_rumah.id_bangunan=bangunan.id_bangunan');
+		$this->db->join('foto_bangunan', 'foto_bangunan.id_bangunan=bangunan.id_bangunan');
+		$this->db->where('status_perumahan', 1);
+		$this->db->where('status_publish', 1);
+		$this->db->where('bangunan.id_perumahan', $id);
+		$this->db->group_by('bangunan.id_bangunan');
+		$query = $this->db->get('');
+
+		return $query;
+	}
+
 	public function EstateDev($id) {
 		$this->db->select('*');
 		$this->db->from('perumahan');

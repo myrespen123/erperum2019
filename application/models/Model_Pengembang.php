@@ -73,6 +73,19 @@ class Model_Pengembang extends CI_Model
 		return $query;
 	}
 
+	public function EstateDev($perumahan_slug) {
+		$this->db->select('*');
+		$this->db->from('perumahan');
+		$this->db->join('pengembang', 'perumahan.id_pengembang=pengembang.id_pengembang');
+		$this->db->join('kecamatan', 'perumahan.id_kecamatan=kecamatan.id_kecamatan');
+		$this->db->join('kelurahan', 'perumahan.id_kelurahan=kelurahan.id_kelurahan');
+		$this->db->where('slug', $perumahan_slug);
+		$this->db->group_by('perumahan.id_perumahan');
+
+		$query = $this->db->get();
+
+		return $query;
+	}
 
 	public function SelectSarana($id) {
 		$this->db->query("SELECT * FROM bangunan INNER JOIN sarana_prasarana ON sarana_prasarana.id_bangunan=bangunan.id_bangunan");

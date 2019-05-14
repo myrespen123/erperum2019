@@ -52,6 +52,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['properti/(:any)'] = 'perumahan/properties/$1';
 $route['pengembang/(:any)/properti'] = 'perumahan/pengembang/$1';
 $route['pengembang/(:any)/perumahan'] = 'perumahan/perumahan_developer/$1';
+$route['perumahan/(:any)'] = 'perumahan/perumahan_detail/$1';
+
 $route['default_controller'] = 'main';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

@@ -2,7 +2,7 @@
 
 <main class="properties-detils">
 	<div class="title-properties2 clean-nav">
-		<h1>Perumahan Perumahan</h1>
+		<h1><?= $row->nama_perumahan ?></h1>
 	</div>
 	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 		<ol class="carousel-indicators">
@@ -40,17 +40,17 @@
 						</div>
 						<div class="pengembang-describe">
 							<a class="pengembang-name" href="">
-								<h4>Nama Oengembnag</h4>
+								<h4><?= $row->nama_pengembang ?></h4>
 							</a>
 							<p>
 								<i class="fa fa-phone"></i>
-									<span class="m-s-5">+8909089090890</span>
+									<span class="m-s-5">+<?= $row->telepon_pengembang; ?></span>
 							</p>
 							<p>
 								<i class="fa fa-envelope"></i>
-									<span class="m-s-5">email@email.com</span>
+									<span class="m-s-5"><?= $row->email_pengembang ?></span>
 							</p>
-								<a href="/properti">
+								<a href="<?php echo site_url('pengembang/'.$row->pengembang_slug); ?>/properti">
 									<button type="button">
 										Lihat
 									</button>
@@ -62,15 +62,10 @@
 					<div class="perumahan-content">
 						<div class="top-describe-perum">
 							<div class="describe-addr">
-								<h1>Nama nama</h1>
+								<h1><?= $row->nama_perumahan ?></h1>
 								<div class="form-group">
 									<i class="fa fa-map-marker"></i>
-										<span>lokasi</span>
-								</div>
-							</div>
-							<div class="properti-room">
-								<div class="row rowp">
-
+										<span><?= $row->lokasi ?>, <?= $row->nama_kelurahan ?>, <?= $row->nama_kecamatan ?></span>
 								</div>
 							</div>
 						</div>
@@ -79,12 +74,7 @@
 								<label>Deskripsi</label>
 							</div>
 							<div class="perum-describe-text">
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-								tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-								quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-								consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-								cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-								proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+								<?= $row->deskripsi_perumahan ?>
 							</div>
 						</div>
 						<div class="properti-ditel">
@@ -92,31 +82,13 @@
 								<label>Fasilitas Perumahan</label>
 							</div>
 							<div class="row">
+								<?php foreach ($fasilitas_perumahan as $val_fas): ?>
 								<div class="col-md-6">
 									<div class="properti-atribut">
-										<p>namanamam</p>
+										<p><?= $val_fas['nama_fasilitas_perumahan'] ?></p>
 									</div>
 								</div>
-								<div class="col-md-6">
-									<div class="properti-atribut">
-										<p>namanamam</p>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="properti-atribut">
-										<p>namanamam</p>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="properti-atribut">
-										<p>namanamam</p>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="properti-atribut">
-										<p>namanamam</p>
-									</div>
-								</div>
+								<?php endforeach ?>
 							</div>
 						</div>
 
@@ -125,29 +97,12 @@
 								<label>Sarana Prasarana Perumahan</label>
 							</div>
 							<div class="row">
+								<?php foreach ($sarana_prasarana_perumahan as $val_sar): ?>
+									
+								<?php endforeach ?>
 								<div class="col-md-6">
 									<div class="properti-atribut">
-										<p>Data</p>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="properti-atribut">
-										<p>Data</p>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="properti-atribut">
-										<p>Data</p>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="properti-atribut">
-										<p>Data</p>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="properti-atribut">
-										<p>Data</p>
+										<p><?= $val_sar['nama_sarana_prasarana_perumahan'] ?></p>
 									</div>
 								</div>
 							</div>
@@ -165,6 +120,62 @@
 			</div>
 		</div>
 	</div>
+	<div class="properti-inestate pads">
+		<div class="big-title m-b-20">
+			<h1>Properti Perumahan</h1>
+		</div>
+			<div class="container">
+				<div class="row">
+					<?php if ($namros > 0): ?>
+						<?php foreach ($dataPerum as $key => $value): ?>
+							<div class="col-lg-4 col-md-6">
+								<figure class="proper-item">
+									<?php $foto_b = $this->db->get_where('foto_bangunan', array('id_bangunan' => $value['id_bangunan'], 'level_foto' => 1))->result_array(); ?>
+									<?php foreach ($foto_b as $valfb): ?>
+										<img src="<?php echo base_url('file/perumahan/images/'.$valfb['foto_bangunan']) ?>">
+									<?php endforeach ?>
+										<figcaption>
+											<div class="proper-deskrip-top">
+												<h5 class="text-capitalize"><?php echo $value['nama_bangunan'] ?></h5>
+													<p class="text-capitalize">
+														<i class="fa fa-map-marker color-blue"></i>
+															<?php echo substr($value['nama_perumahan'], 0,40) ?>
+													</p>
+											</div>
+											<div class="proper-deskrip-bot">
+												<div>
+													<p>
+														<i class="fa fa-th-large color-blue"></i>
+															<span class="color-blue m-s-10"><?= $value['jumlah_lantai'] ?> Lantai</span>
+													</p>
+													<p>
+														<i class="fa fa-car color-blue"></i>
+															<span class="color-blue m-s-10"><?= $value['jumlah_garasi'] ?> Garasi</span>
+													</p>
+												</div>
+												<div>
+													<p>
+														<i class="fa fa-bed color-blue"></i>
+															<span class="color-blue m-s-10"><?= $value['jumlah_kamar'] ?> Kamar</span>
+													</p>
+													<p>
+														<i class="fa fa-bath color-blue"></i>
+															<span class="color-blue m-s-10"><?= $value['jumlah_kamar_mandi'] ?> Toilet</span>
+													</p>
+												</div>
+											</div>
+											<a href="<?= site_url('properti/'.$value['bangunan_slug']); ?>">LIHAT</a>
+										</figcaption>
+								</figure>
+							</div>
+						<?php endforeach ?>
+					<?php else: ?>
+						<h3 class="flex justify-center width100">Oops, Sepertinya perumahan ini belum memiliki properti :(</h3>
+					<?php endif ?>
+				</div> 
+			</div>
+			
+	</div>
 </main>
 
 <?php $this->load->view('parts/footer'); ?>
@@ -178,8 +189,8 @@
 <script>
 	mapboxgl.accessToken = 'pk.eyJ1IjoibXlyZXNwZW4xMjMiLCJhIjoiY2p0NTk3ejhiMDNmYTQzcGowdGY3dGNzdCJ9.7Lj7S1mKplZMmRAFWJT5XQ';
 	var coordinates = document.getElementById('coordinates');
-	var lang = 20;
-	var lat = 0;
+	var lang = <?= $row->longitude ?>;
+	var lat = <?= $row->latitude ?>;
 	var map = new mapboxgl.Map({
 		container: 'map',
 		style: 'mapbox://styles/mapbox/streets-v9',

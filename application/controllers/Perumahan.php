@@ -82,7 +82,11 @@ class Perumahan extends CI_Controller
 
 	}
 
-	public function perumahan_detail() {
+	public function perumahan_detail($perumahan_slug) {
+		$query  = $this->Model_Pengembang->EstateDev($perumahan_slug);
+		// $query = $this->db->get_where('perumahan', array('slug' => $perumahan_slug));
+		$ror_b 	= $query->row();
+
 		$header = $this->db->get_where('main_bg', array('id_main_bg' => 1));
 		$middle = $this->db->get_where('main_bg', array('id_main_bg' => 2));
 		$footer = $this->db->get_where('main_bg', array('id_main_bg' => 3));
@@ -96,8 +100,23 @@ class Perumahan extends CI_Controller
 		$data['mainfo'] 	= $mainfo->result_array();
 		$data['maintentang'] 	= $maintentang->row();
 		$data['row_set'] = $query99->row();
-
-		$this->load->view('main/estate_detail', $data);
+		
+		$data['row']  				= $query->row();
+		$data['num_rows'] 			= $query->num_rows();
+		if ($query->num_rows > 0) {
+			$dataPerum = $this->Model_Main->PropertiEstate($ror_b->id_perumahan);
+			$fasilitas_perumahan 		= $this->db->get_where('fasilitas_perumahan', array('id_perumahan' => $ror_b->id_perumahan));
+			$sarana_prasarana_perumahan = $this->db->get_where('sarana_prasarana_perumahan', array('id_perumahan' => $ror_b->id_perumahan));
+			$data['fasilitas_perumahan'] = $fasilitas_perumahan->result_array();
+			$data['sarana_prasarana_perumahan'] = $sarana_prasarana_perumahan->result_array();
+			$data['row']  	= $ror_b;
+			$data['dataPerum'] = $dataPerum->result_array();
+			$data['namros'] = $dataPerum->num_rows();
+			$this->load->view('main/estate_detail', $data);
+		} else {
+			$data['error_title'] = "Perumahan";
+			$this->load->view('main/error/custom_error', $data);
+		}
 	}
 
 	public function pengembang($pengembang_slug) {
@@ -135,8 +154,8 @@ class Perumahan extends CI_Controller
 		}
 	}
 
-	public function perumahan_developer() {
-		$query = $this->db->get_where('pengembang', array('id_pengembang' => 7));
+	public function perumahan_developer($pengembang_slug) {
+		$query = $this->db->get_where('pengembang', array('pengembang_slug' => $pengembang_slug));
 		$row_dev = $query->row();
 		$id_pengembang = $row_dev->id_pengembang;
 

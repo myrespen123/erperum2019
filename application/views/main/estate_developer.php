@@ -63,25 +63,34 @@
 								</div>
 								<div class="col-md-7">
 									<div class="estate-min-info">
-										<a href="<?= site_url('perumahan/'.$data_perumahan['slug']) ?>" class="estate-min-title">
-											<?= $data_perumahan['nama_perumahan'] ?>
-										</a>
-										<p class="estate-min-location">
-											<?= $data_perumahan['lokasi'].", ".$data_perumahan['nama_kelurahan'].", ".$data_perumahan['nama_kecamatan'] ?>
-										</p>
-										<div class="estate-min-properti">
-											<?php $row_properti = $this->db->get_where('bangunan', array('id_perumahan' => $data_perumahan['id_perumahan']))->num_rows(); ?>
-											<?= $row_properti; ?> Properti
+										<div class="estate-min-item">
+											<a href="<?= site_url('perumahan/'.$data_perumahan['slug']) ?>" class="estate-min-title">
+												<?= $data_perumahan['nama_perumahan'] ?>
+											</a>
+											<p class="estate-min-location">
+												<?= $data_perumahan['lokasi'].", ".$data_perumahan['nama_kelurahan'].", ".$data_perumahan['nama_kecamatan'] ?>
+											</p>
+											<div class="estate-min-properti">
+												<?php $row_properti = $this->db->get_where('bangunan', array('id_perumahan' => $data_perumahan['id_perumahan'], 'status_publish' => 1))->num_rows(); ?>
+												<?= $row_properti; ?> Properti
+											</div>
+											<div class="estate-min-facilities">
+												<?php $q_fasilitas_perumahan = $this->db->get_where('fasilitas_perumahan', array('id_perumahan' => $data_perumahan['id_perumahan']))->result_array(); ?>
+												<?php foreach ($q_fasilitas_perumahan as $data_fas): ?>
+													<span class="estate-fac-item"><?= $data_fas['nama_fasilitas_perumahan']; ?></span>
+												<?php endforeach ?>
+												<?php $q_sarana_perumahan = $this->db->get_where('sarana_prasarana_perumahan', array('id_perumahan' => $data_perumahan['id_perumahan']))->result_array(); ?>
+												<?php foreach ($q_sarana_perumahan as $data_sar): ?>
+													<span class="estate-fac-item"><?= $data_sar['nama_sarana_prasarana_perumahan']; ?></span>
+												<?php endforeach ?>
+											</div>
 										</div>
-										<div class="estate-min-facilities">
-											<?php $q_fasilitas_perumahan = $this->db->get_where('fasilitas_perumahan', array('id_perumahan' => $data_perumahan['id_perumahan']))->result_array(); ?>
-											<?php foreach ($q_fasilitas_perumahan as $data_fas): ?>
-												<span class="estate-fac-item"><?= $data_fas['nama_fasilitas_perumahan']; ?></span>
-											<?php endforeach ?>
-											<?php $q_sarana_perumahan = $this->db->get_where('sarana_prasarana_perumahan', array('id_perumahan' => $data_perumahan['id_perumahan']))->result_array(); ?>
-											<?php foreach ($q_sarana_perumahan as $data_sar): ?>
-												<span class="estate-fac-item"><?= $data_sar['nama_sarana_prasarana_perumahan']; ?></span>
-											<?php endforeach ?>
+										<div class="estate-min-item">
+											<div class="estate-min-link">
+												<a href="<?= site_url('perumahan/'.$data_perumahan['slug']) ?>">
+													Lihat <i class="fa fa-caret-right"></i>
+												</a>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -136,4 +145,4 @@
 
 	map.addControl(new mapboxgl.FullscreenControl());
 	map.addControl(new mapboxgl.NavigationControl());
-</script>
+</script> 
